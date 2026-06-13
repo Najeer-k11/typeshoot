@@ -8,10 +8,11 @@ export function createPhaserGame(containerId) {
     parent: containerId,
     backgroundColor: '#0a0a1a',
     scale: {
-      mode: Phaser.Scale.FIT,
+      mode: Phaser.Scale.RESIZE,
       autoCenter: Phaser.Scale.CENTER_BOTH,
-      width: 480,
-      height: 854,
+      width: window.innerWidth,
+      height: window.innerHeight,
+      parent: containerId,
     },
     physics: {
       default: 'arcade',

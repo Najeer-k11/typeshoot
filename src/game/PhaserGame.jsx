@@ -19,7 +19,7 @@ export default function PhaserGame() {
   return (
     <div
       id="phaser-container"
-      style={{ width: '100%', height: '100dvh' }}
+      style={{ width: '100%', height: '100%' }}
     />
   );
 }

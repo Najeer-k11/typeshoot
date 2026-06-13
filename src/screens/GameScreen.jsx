@@ -57,7 +57,8 @@ export default function GameScreen() {
   return (
     <div
       className="relative w-full overflow-hidden screen-enter"
-      style={{ height: '100dvh' }}
+      style={{ height: '100%' }}
+      onTouchStart={handleCanvasTap}
       onClick={handleCanvasTap}
     >
       {/* Phaser canvas */}

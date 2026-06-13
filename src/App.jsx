@@ -7,7 +7,7 @@ export default function App() {
   const screen = useGameStore((s) => s.screen);
 
   return (
-    <div className="w-full overflow-hidden star-bg" style={{ height: '100dvh' }}>
+    <div className="w-full overflow-hidden star-bg" style={{ height: '100%' }}>
       {screen === 'menu'     && <MenuScreen />}
       {screen === 'game'     && <GameScreen />}
       {screen === 'gameover' && <GameOverScreen />}
