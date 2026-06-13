@@ -1,0 +1,190 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ── Reset & no-scroll foundation ──────────────────────────────────── */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html,
+body,
+#root {
+  width: 100%;
+  height: 100dvh;              /* shrinks when keyboard opens — no scroll */
+  overflow: hidden;
+  overscroll-behavior: none;
+  touch-action: none;
+  background: #0a0a1a;
+  -webkit-user-select: none;
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* ── Typography ─────────────────────────────────────────────────────── */
+body {
+  font-family: 'Inter', system-ui, sans-serif;
+  color: #e0e0ff;
+}
+
+/* ── Design tokens ──────────────────────────────────────────────────── */
+:root {
+  --cyan:    #00ffcc;
+  --pink:    #ff2d78;
+  --purple:  #9f50ff;
+  --yellow:  #ffe666;
+  --orange:  #ff8c00;
+  --bg:      #0a0a1a;
+  --bg2:     #0f0f2a;
+  --glass:   rgba(255, 255, 255, 0.06);
+  --border:  rgba(0, 255, 204, 0.2);
+}
+
+/* ── Neon glow utilities ────────────────────────────────────────────── */
+.glow-cyan   { text-shadow: 0 0 8px var(--cyan),  0 0 24px var(--cyan);  }
+.glow-pink   { text-shadow: 0 0 8px var(--pink),  0 0 24px var(--pink);  }
+.glow-purple { text-shadow: 0 0 8px var(--purple), 0 0 24px var(--purple); }
+.glow-yellow { text-shadow: 0 0 8px var(--yellow), 0 0 24px var(--yellow); }
+
+/* ── Glassmorphism card ─────────────────────────────────────────────── */
+.glass-card {
+  background: var(--glass);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+}
+
+/* ── Scanline overlay (decorative) ─────────────────────────────────── */
+.scanlines::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: repeating-linear-gradient(
+    0deg,
+    transparent,
+    transparent 2px,
+    rgba(0, 0, 0, 0.08) 2px,
+    rgba(0, 0, 0, 0.08) 4px
+  );
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* ── Background star field gradient ────────────────────────────────── */
+.star-bg {
+  background:
+    radial-gradient(ellipse at 20% 50%, rgba(159, 80, 255, 0.12) 0%, transparent 50%),
+    radial-gradient(ellipse at 80% 20%, rgba(0, 255, 204, 0.08) 0%, transparent 40%),
+    radial-gradient(ellipse at 60% 80%, rgba(255, 45, 120, 0.08) 0%, transparent 40%),
+    #0a0a1a;
+}
+
+/* ── Combo badge animations ─────────────────────────────────────────── */
+@keyframes comboPop {
+  0%   { transform: scale(1.5); opacity: 0; }
+  40%  { transform: scale(0.9); opacity: 1; }
+  70%  { transform: scale(1.05); }
+  100% { transform: scale(1); opacity: 1; }
+}
+
+@keyframes comboPulse {
+  0%, 100% { box-shadow: 0 0 16px var(--yellow); }
+  50%       { box-shadow: 0 0 32px var(--yellow), 0 0 64px var(--yellow); }
+}
+
+@keyframes comboShake {
+  0%, 100% { transform: translateX(0); }
+  25%       { transform: translateX(-4px) rotate(-1deg); }
+  75%       { transform: translateX(4px) rotate(1deg); }
+}
+
+.combo-pop {
+  animation: comboPop 0.35s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards,
+             comboPulse 1.2s ease-in-out infinite 0.35s;
+}
+
+/* ── Power-up bar ───────────────────────────────────────────────────── */
+@keyframes barDrain {
+  from { width: 100%; }
+  to   { width: 0%; }
+}
+
+/* ── Screen transitions ─────────────────────────────────────────────── */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(12px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fadeOut {
+  from { opacity: 1; }
+  to   { opacity: 0; }
+}
+
+.screen-enter {
+  animation: fadeIn 0.4s ease forwards;
+}
+
+/* ── Title shimmer ──────────────────────────────────────────────────── */
+@keyframes shimmer {
+  0%   { background-position: -200% center; }
+  100% { background-position: 200% center; }
+}
+
+.title-shimmer {
+  background: linear-gradient(
+    90deg,
+    var(--cyan) 0%,
+    #fff 30%,
+    var(--cyan) 50%,
+    var(--purple) 70%,
+    var(--cyan) 100%
+  );
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: shimmer 3s linear infinite;
+}
+
+/* ── Heartbeat for lives ────────────────────────────────────────────── */
+@keyframes heartbeat {
+  0%, 100% { transform: scale(1); }
+  14%       { transform: scale(1.2); }
+  28%       { transform: scale(1); }
+  42%       { transform: scale(1.15); }
+}
+
+.heart-pulse {
+  animation: heartbeat 1.4s ease-in-out infinite;
+}
+
+/* ── Enemy damage flash ─────────────────────────────────────────────── */
+@keyframes damageFlash {
+  0%, 100% { filter: brightness(1); }
+  50%       { filter: brightness(3) saturate(0); }
+}
+
+/* ── Button press ───────────────────────────────────────────────────── */
+.btn-press:active {
+  transform: scale(0.95);
+}
+
+/* ── Score pop ──────────────────────────────────────────────────────── */
+@keyframes scorePop {
+  0%   { transform: scale(1.4); color: var(--cyan); }
+  100% { transform: scale(1);   color: inherit; }
+}
+
+.score-pop {
+  animation: scorePop 0.3s ease forwards;
+}
+
+/* ── Particle burst (CSS only fallback) ─────────────────────────────── */
+@keyframes particleBurst {
+  to { transform: translate(var(--tx), var(--ty)) scale(0); opacity: 0; }
+}
